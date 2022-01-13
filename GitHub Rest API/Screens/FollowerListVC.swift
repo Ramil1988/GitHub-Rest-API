@@ -27,8 +27,6 @@ class FollowerListVC: UIViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -65,7 +63,6 @@ class FollowerListVC: UIViewController {
         navigationItem.searchController                         = searchController
     }
     
-    
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
@@ -78,7 +75,7 @@ class FollowerListVC: UIViewController {
         showLoadingView()
         NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
             guard let self = self else { return }
-            dismissLoadingView()
+            self.dismissLoadingView()
             
             switch result {
             case .success(let followers):
@@ -136,14 +133,20 @@ class FollowerListVC: UIViewController {
     
     func presentGHAlertOnMainThread(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
-            let alertVC = GFAlertVC(title: title, message: message, buttonTitle: buttonTitle)
+            let alertVC = GHAlertVC(title: title, message: message, buttonTitle: buttonTitle)
             alertVC.modalPresentationStyle  = .overFullScreen
             alertVC.modalTransitionStyle    = .crossDissolve
             self.present(alertVC, animated: true)
         }
     }
+    
+    func dismissLoadingView() {
+        DispatchQueue.main.async {
+            containerView.removeFromSuperview()
+            containerView = nil
+        }
+    }
 }
-
 
 extension FollowerListVC: UICollectionViewDelegate {
     
@@ -183,13 +186,6 @@ extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         updateData(on: followers)
-    }
-}
-
-func dismissLoadingView() {
-    DispatchQueue.main.async {
-        containerView.removeFromSuperview()
-        containerView = nil
     }
 }
 

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum ItemInfoType {
     case followers, following
 }

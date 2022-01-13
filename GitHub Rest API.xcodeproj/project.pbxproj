@@ -97,11 +97,11 @@
 			isa = PBXGroup;
 			children = (
 				0B550F32278F486100DA5124 /* CustomViews */,
+				0B550F39278F4CB100DA5124 /* Models */,
 				0B550F2B278F3BD900DA5124 /* NetworkCall */,
 				0B550F2F278F3EF500DA5124 /* Screens */,
-				0B550F2C278F3D2100DA5124 /* InitialFiles */,
-				0B550F39278F4CB100DA5124 /* Models */,
 				0B550F44278F594000DA5124 /* Utilities */,
+				0B550F2C278F3D2100DA5124 /* InitialFiles */,
 				0B550F25278F3ADE00DA5124 /* Info.plist */,
 			);
 			path = "GitHub Rest API";

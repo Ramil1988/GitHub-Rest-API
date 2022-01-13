@@ -51,7 +51,6 @@ class NetworkManager {
         task.resume()
     }
 
-
     func getUserInfo(for username: String, completed: @escaping (Result<User, GHError>) -> Void) {
         let endpoint = baseURL + "\(username)"
 
